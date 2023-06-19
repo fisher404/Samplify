@@ -1,7 +1,8 @@
 import React from 'react';
 import { createRoot } from "react-dom/client";
-import Main from "./components/Main";
+import ArtistSearch from "./components/ArtistSearch";
 import { BrowserRouter } from "react-router-dom";
+import Menu from './components/Menu';
 
 const container = document.getElementById("root");
 const root = createRoot(container);
@@ -9,6 +10,7 @@ const root = createRoot(container);
 
 root.render(
     <BrowserRouter>
-        <Main />
+        <Menu />
+        <ArtistSearch />
     </BrowserRouter>
 );
