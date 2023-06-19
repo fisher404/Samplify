@@ -1,16 +1,13 @@
 import React from 'react';
 import { createRoot } from "react-dom/client";
-import ArtistSearch from "./components/ArtistSearch";
 import { BrowserRouter } from "react-router-dom";
-import Menu from './components/Menu';
+import Main from './components/Main';
 
 const container = document.getElementById("root");
 const root = createRoot(container);
 
-
 root.render(
     <BrowserRouter>
-        <Menu />
-        <ArtistSearch />
+       <Main />
     </BrowserRouter>
 );

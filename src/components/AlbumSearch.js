@@ -4,10 +4,10 @@ import { Container, InputGroup, FormControl, Button, Row, Card } from 'react-boo
 import { useState, useEffect } from 'react';
 
 const CLIENT_ID = '9b2683978ec447ff89addbff75c2ab89';
-const CLIENT_SECRET = '96cf5cd041bf43658c60ccea928c1bda';
+const CLIENT_SECRET = 'cf479909f4224f99b490d434496cfe6a';
 
 
-const AlbumsSearch = () => {
+const AlbumSearch = () => {
 const [ searchInput, setSearchInput ] = useState('');
 const [ accessToken, setAccessToken ] = useState('');
 const [ albums, setAlbums ] = useState([]);
@@ -85,4 +85,4 @@ async function search() {
     )
 }
 
-export default AlbumsSearch;
+export default AlbumSearch;
