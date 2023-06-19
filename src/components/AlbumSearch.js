@@ -34,21 +34,39 @@ async function search() {
             'Authorization': 'Bearer ' + accessToken
         }
     }
-    const artistId = await fetch('https://api.spotify.com/v1/search?q=' + searchInput + '&type=artist', searchParams)
-    .then(response => response.json())
-    .then(data => { console.log(data) 
-        return data.artists.items[0].id });
 
-    // console.log(artistId)
-    // get request with artist ID grab all the albums from the artist
-    const albumsData = await fetch ('https://api.spotify.com/v1/artists/' + artistId + '/albums' + '?include_groups=album&market=US&limit=50', searchParams)
-    .then(response => response.json())
-    .then(data => {
-        // console.log(data)
-        setAlbums(data.items);
-    })
-    // display albums to the user
-}
+    const searchQuery = encodeURIComponent(searchInput);
+
+    const searchResults = await fetch(
+        `https://api.spotify.com/v1/search?q=${searchQuery}&type=album&limit=20`,
+        searchParams
+      )
+        .then((response) => response.json())
+        .then((data) => {
+          console.log(data)
+          return data.albums.items;
+        })
+        .catch((error) => {
+          console.error('Error:', error);
+          return [];
+        });
+
+        const albumIds = searchResults.map((album) => album.id);
+
+        const albumData = await Promise.all(
+            albumIds.map((albumId) => 
+                fetch(`https://api.spotify.com/v1/albums/${albumId}`, searchParams)
+                .then((response) => response.json())
+                .catch((error) => {
+            console.error('Error:', error);
+            return null;
+            })
+          )
+        );
+
+        setAlbums(albumData.filter((album) => album !== null));
+    }
+    
     return (
         <div className='Main'>
         <Container>
@@ -68,10 +86,10 @@ async function search() {
         </Container>
         <Container>
             <Row className=" mx-2 row row-cols-4">
-                {albums.map((album, i) => {
+                {albums.map((album) => {
                     console.log(album)
                     return (
-                        <Card>
+                        <Card key={album.id}>
                             <Card.Img src={album.images[0].url} />
                             <Card.Body>
                                 <Card.Title>{album.name}</Card.Title>
@@ -84,5 +102,6 @@ async function search() {
         </div>
     )
 }
+
 
 export default AlbumSearch;
