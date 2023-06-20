@@ -2,6 +2,8 @@ import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Container, InputGroup, FormControl, Button, Row, Card } from 'react-bootstrap';
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import Album from './Album';
 
 const CLIENT_ID = '9b2683978ec447ff89addbff75c2ab89';
 const CLIENT_SECRET = 'cf479909f4224f99b490d434496cfe6a';
@@ -56,17 +58,26 @@ async function search() {
         const albumData = await Promise.all(
             albumIds.map((albumId) => 
                 fetch(`https://api.spotify.com/v1/albums/${albumId}`, searchParams)
-                .then((response) => response.json())
+                .then((response) => response.json())//change to response.json(), take a piicture of all the console so i know all properties on the object
                 .catch((error) => {
             console.error('Error:', error);
             return null;
             })
           )
-        );
+        ); //this already fetches all data i need for the albums including tracks
 
         setAlbums(albumData.filter((album) => album !== null));
     }
     
+    const handleCLickAlbum = (album) => {
+        console.log(album) 
+       return(
+
+            <Album album={album} />
+
+       )
+    }
+
     return (
         <div className='Main'>
         <Container>
@@ -87,16 +98,18 @@ async function search() {
         <Container>
             <Row className=" mx-2 row row-cols-4">
                 {albums.map((album) => {
-                    console.log(album)
                     return (
+                        //onClick event handler to go to the album page
+                    <Link onClick={ () => handleCLickAlbum(album) } key={album.id} to={`/album/${album.id}` }>
                         <Card key={album.id}>
                             <Card.Img src={album.images[0].url} />
                             <Card.Body>
                                 <Card.Title>{album.name}</Card.Title>
                             </Card.Body>
                         </Card>
-                    )
-                })}
+                        {/* <Album album={album} /> */}
+                    </Link>
+                )})}
             </Row>
         </Container>
         </div>
