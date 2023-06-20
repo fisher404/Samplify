@@ -15,7 +15,7 @@ const Main = () => {
         <Routes>
             <Route path="/artists" element={<ArtistSearch />}/>
             <Route path="/albums" element={<AlbumSearch />}/> 
-            <Route path='/album/:albumId/*' element={<Album />}/>
+            <Route path='/album' element={<Album />}/>
             {/* <Route path='/songs' element= {<SongsSearch />}/>
             <Route path='/playlists'element=  {<PlaylistSearch />}/> */}
         </Routes> 

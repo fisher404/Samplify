@@ -3,7 +3,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Container, InputGroup, FormControl, Button, Row, Card } from 'react-bootstrap';
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import Album from './Album';
 
 const CLIENT_ID = '9b2683978ec447ff89addbff75c2ab89';
 const CLIENT_SECRET = 'cf479909f4224f99b490d434496cfe6a';
@@ -15,6 +14,16 @@ const [ accessToken, setAccessToken ] = useState('');
 const [ albums, setAlbums ] = useState([]);
 
 useEffect (() => {
+    // const storedSearchInput = sessionStorage.getItem('searchInput');
+    // if (storedSearchInput) {
+    //   setSearchInput(storedSearchInput);
+    // }
+
+    // const storedAlbums = sessionStorage.getItem('albums');
+    // if (storedAlbums) {
+    //   setAlbums(JSON.parse(storedAlbums));
+    // }
+    
     //API Access token
     const authParams = {
         method: 'POST',
@@ -27,6 +36,11 @@ useEffect (() => {
     .then(result => result.json())
     .then(data => setAccessToken(data.access_token))
 }, [])
+
+// useEffect(() => {
+//     sessionStorage.setItem('searchInput', searchInput);
+//     sessionStorage.setItem('albums', JSON.stringify(albums));
+//   }, [searchInput, albums]);
 
 async function search() {
     const searchParams = {
@@ -68,15 +82,6 @@ async function search() {
 
         setAlbums(albumData.filter((album) => album !== null));
     }
-    
-    const handleCLickAlbum = (album) => {
-        console.log(album) 
-       return(
-
-            <Album album={album} />
-
-       )
-    }
 
     return (
         <div className='Main'>
@@ -100,14 +105,13 @@ async function search() {
                 {albums.map((album) => {
                     return (
                         //onClick event handler to go to the album page
-                    <Link onClick={ () => handleCLickAlbum(album) } key={album.id} to={`/album/${album.id}` }>
-                        <Card key={album.id}>
+                        <Link key={album.id} to={`/album`} state={{ album: album }}>
+                        <Card key={album.id} >
                             <Card.Img src={album.images[0].url} />
                             <Card.Body>
                                 <Card.Title>{album.name}</Card.Title>
                             </Card.Body>
                         </Card>
-                        {/* <Album album={album} /> */}
                     </Link>
                 )})}
             </Row>
@@ -116,5 +120,5 @@ async function search() {
     )
 }
 
-
 export default AlbumSearch;
+
