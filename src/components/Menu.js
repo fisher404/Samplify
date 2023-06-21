@@ -4,7 +4,7 @@ import { Container, Navbar, Nav } from'react-bootstrap';
 
 const Menu = () => {
     return (
-        <Navbar expand="lg" className="bg-body-tertiary" bg="dark" data-bs-theme="dark">
+        <Navbar expand="lg" className="bg-body-tertiary text-white mb-4" bg="dark" data-bs-theme="dark" >
             <Container>
                 <Navbar.Brand href="/">Spotify Clone</Navbar.Brand>
                 <Nav.Link href='/'>Home</Nav.Link>

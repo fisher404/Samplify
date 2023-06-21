@@ -72,7 +72,7 @@ async function search() {
         const albumData = await Promise.all(
             albumIds.map((albumId) => 
                 fetch(`https://api.spotify.com/v1/albums/${albumId}`, searchParams)
-                .then((response) => response.json())//change to response.json(), take a piicture of all the console so i know all properties on the object
+                .then((response) => response.json())
                 .catch((error) => {
             console.error('Error:', error);
             return null;

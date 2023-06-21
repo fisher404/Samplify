@@ -4,9 +4,9 @@ import { Container, InputGroup, FormControl, Button, Row, Card } from 'react-boo
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
+
 const CLIENT_ID = '9b2683978ec447ff89addbff75c2ab89';
 const CLIENT_SECRET = 'cf479909f4224f99b490d434496cfe6a';
-
 
 const ArtistSearch = () => {
 const [ searchInput, setSearchInput ] = useState('');

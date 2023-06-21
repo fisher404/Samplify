@@ -10,7 +10,7 @@ const CLIENT_SECRET = 'cf479909f4224f99b490d434496cfe6a';
 
 const Artist = () => {
     const [ accessToken, setAccessToken ] = useState('');
-    const [ albums, setAlbums ] = useState([]);
+    const [ artistAlbums, setArtistAlbums ] = useState([]);
 
     const location = useLocation();
     console.log(location.state.artist);
@@ -38,7 +38,7 @@ const Artist = () => {
       useEffect(() => {
         // Fetch artist's albums
         const fetchAlbums = async () => {
-          const searchParams = {
+          const artistParams = {
             method: 'GET',
             headers: {
               'Content-Type': 'application/json',
@@ -48,30 +48,39 @@ const Artist = () => {
     
           const albumsResponse = await fetch(
             `https://api.spotify.com/v1/artists/${currentArtist.id}/albums`,
-            searchParams
+            artistParams
           );
           const albumsData = await albumsResponse.json();
     
-          setAlbums(albumsData.items);
+          setArtistAlbums(albumsData.items);
         };
     
         if (accessToken) {
           fetchAlbums();
         }
+
       }, [accessToken, currentArtist]);
-        
 
     return (
+        <div>
         <Container>
             <Card>
             <Card.Img
                 src={currentArtist.images[0].url}
-                style={{ width: '50%', height: 'auto' }}
-            />
-            </Card>
+                style={{
+                  width: '30%',
+                  height: 'auto',
+                  margin: '0 auto',
+                }} />
+                <Card.Title style={{ textAlign: 'center' }}>
+                  <h2>{currentArtist.name}</h2>
+                </Card.Title>
             <Row className="mx-2 row row-cols-4">
-            {albums.map((album) => (
-                <Link key={album.id} to={`/album`} state={{ album: album }}>
+            {artistAlbums.map((album) => (
+                <Link key={album.id} to={{
+                    pathname: '/album',
+                    state: { album },
+                  }}>
                 <Card key={album.id}>
                     <Card.Img src={album.images[0].url} />
                     <Card.Body>
@@ -81,7 +90,9 @@ const Artist = () => {
                 </Link>
             ))}
             </Row>
+            </Card>
         </Container>
+        </div>
     );
 };
 

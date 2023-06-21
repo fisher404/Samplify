@@ -1,6 +1,6 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import Menu from './Menu'
 import AlbumSearch from './AlbumSearch';
 import ArtistSearch from './ArtistSearch';
@@ -10,8 +10,10 @@ import Artist from './Artist';
 // import PlaylistSearch from './components/PlaylistSearch';
 
 const Main = () => {
-   return (
-        <div>
+    const location = useLocation();
+    const isMainPage = location.pathname === '/';
+    return (
+    <div className="bg-dark text-white min-vh-100">
         <Menu />
         <Routes>
             <Route path="/artists" element={<ArtistSearch />}/>
@@ -21,6 +23,11 @@ const Main = () => {
             {/* <Route path='/songs' element= {<SongsSearch />}/>
             <Route path='/playlists'element=  {<PlaylistSearch />}/> */}
         </Routes> 
+        {isMainPage && (
+        <div className="container text-center mt-5">
+          <h1 className="display-4">Welcome to My Little Spotify Clone</h1>
+        </div>
+      )}
         </div>
    );
 }
