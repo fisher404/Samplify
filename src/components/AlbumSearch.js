@@ -104,7 +104,6 @@ async function search() {
             <Row className=" mx-2 row row-cols-4">
                 {albums.map((album) => {
                     return (
-                        //onClick event handler to go to the album page
                         <Link key={album.id} to={`/album`} state={{ album: album }}>
                         <Card key={album.id} >
                             <Card.Img src={album.images[0].url} />

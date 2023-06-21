@@ -2,7 +2,7 @@ import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Container, InputGroup, FormControl, Button, Row, Card } from 'react-bootstrap';
 import { useState, useEffect } from 'react';
-
+import { Link } from 'react-router-dom';
 
 const CLIENT_ID = '9b2683978ec447ff89addbff75c2ab89';
 const CLIENT_SECRET = 'cf479909f4224f99b490d434496cfe6a';
@@ -86,22 +86,20 @@ async function search() {
             </InputGroup>
         </Container>
         <Container>
-            <Row className=" mx-2 row row-cols-4">
-                {artists.map((artist) => {
-                    return (
-                        <Card key={artist.id}>
-                            {artist.images.length > 0 ? (
-                            <Card.Img src={artist.images[0].url} />
-                             ) : (
-                            <Card.Img src="placeholder.jpg" alt="Placeholder" />
-                            )}
-                            <Card.Body>
-                                <Card.Title>{artist.name}</Card.Title>
-                                <Card.Title>{artist.genres}</Card.Title>
-                            </Card.Body>
-                        </Card>
-                    )
-                })}
+          <Row className=" mx-2 row row-cols-4">
+              {artists.map((artist) => {
+                  return (
+                    <Link key={artist.id} to={`/artist`} state={{ artist: artist }}>
+                      <Card key={artist.id}>
+                          {artist.images.length > 0 ? (
+                          <Card.Img src={artist.images[0].url} />
+                            ) : ( null )}
+                          <Card.Body>
+                              <Card.Title>{artist.name}</Card.Title>
+                          </Card.Body>
+                      </Card>
+                    </Link>
+                  )})}
             </Row>
         </Container>
         </div>
