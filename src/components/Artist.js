@@ -53,6 +53,7 @@ const Artist = () => {
           const albumsData = await albumsResponse.json();
     
           setArtistAlbums(albumsData.items);
+          console.log(albumsData.items);
         };
     
         if (accessToken) {
@@ -77,10 +78,8 @@ const Artist = () => {
                 </Card.Title>
             <Row className="mx-2 row row-cols-4">
             {artistAlbums.map((album) => (
-                <Link key={album.id} to={{
-                    pathname: '/album',
-                    state: { album },
-                  }}>
+                <Link key={album.id} to={'/album'}
+                    state={{ artistAlbum: album.id }}>
                 <Card key={album.id}>
                     <Card.Img src={album.images[0].url} />
                     <Card.Body>
