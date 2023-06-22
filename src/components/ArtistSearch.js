@@ -90,14 +90,14 @@ async function search() {
               {artists.map((artist) => {
                   return (
                     <Link key={artist.id} to={`/artist`} state={{ artist: artist }}>
-                      <Card key={artist.id}>
-                          {artist.images.length > 0 ? (
-                          <Card.Img src={artist.images[0].url} />
-                            ) : ( null )}
-                          <Card.Body>
-                              <Card.Title>{artist.name}</Card.Title>
-                          </Card.Body>
-                      </Card>
+                        <Card key={artist.id}>
+                            {artist.images.length > 0 ? (
+                            <Card.Img src={artist.images[0].url} />
+                              ) : ( null )}
+                            <Card.Body>
+                                <Card.Title>{artist.name}</Card.Title>
+                            </Card.Body>
+                        </Card>
                     </Link>
                   )})}
             </Row>

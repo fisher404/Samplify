@@ -14,16 +14,6 @@ const [ accessToken, setAccessToken ] = useState('');
 const [ albums, setAlbums ] = useState([]);
 
 useEffect (() => {
-    // const storedSearchInput = sessionStorage.getItem('searchInput');
-    // if (storedSearchInput) {
-    //   setSearchInput(storedSearchInput);
-    // }
-
-    // const storedAlbums = sessionStorage.getItem('albums');
-    // if (storedAlbums) {
-    //   setAlbums(JSON.parse(storedAlbums));
-    // }
-    
     //API Access token
     const authParams = {
         method: 'POST',
@@ -36,11 +26,6 @@ useEffect (() => {
     .then(result => result.json())
     .then(data => setAccessToken(data.access_token))
 }, [])
-
-// useEffect(() => {
-//     sessionStorage.setItem('searchInput', searchInput);
-//     sessionStorage.setItem('albums', JSON.stringify(albums));
-//   }, [searchInput, albums]);
 
 async function search() {
     const searchParams = {
@@ -101,11 +86,11 @@ async function search() {
             </InputGroup>
         </Container>
         <Container>
-            <Row className=" mx-2 row row-cols-4">
+            <Row className="mx-2 row row-cols-4 justify-content-center my-3">
                 {albums.map((album) => {
                     return (
                         <Link key={album.id} to={`/album`} state={{ album: album }}>
-                        <Card key={album.id} >
+                        <Card key={album.id} className="mb-3">
                             <Card.Img src={album.images[0].url} />
                             <Card.Body>
                                 <Card.Title>{album.name}</Card.Title>
