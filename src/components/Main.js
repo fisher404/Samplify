@@ -25,7 +25,11 @@ const Main = () => {
         </Routes> 
         {isMainPage && (
         <div className="container text-center mt-5">
-          <h1 className="display-4">Welcome to My Little Spotify Clone</h1>
+          <h1 className="display-4">Welcome to Janice Fisher's </h1>
+          <img src="https://zeevector.com/wp-content/uploads/Black-Spotify-Logo.png"
+            alt="Spotify Logo"
+            style={{ width: '200px', height: 'auto' }} />
+           <h1 className="display-4">API Demo</h1>
         </div>
       )}
         </div>
